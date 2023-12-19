@@ -15,12 +15,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -31,11 +33,16 @@ import componentes.ImagenAnim;
 import componentes.JPasswordFieldModificado;
 import componentes.JTextFieldModificado;
 import definitions.VisualDefinitions;
+import definitions.VisualErrors;
+import dto.StudentDTO;
+import dto.UserDTO;
 import raven.glasspanepopup.GlassPanePopup;
 import raven.glasspanepopup.Option;
 import raven.toast.Notifications;
+import raven.toast.Notifications.Location;
 import sample.message.MessageSinCancel;
 import sample.message.OptionConstructor;
+import services.ServicesLocator;
 import utils.Auxiliar;
 import visual.components.TopPanel;
 
@@ -60,15 +67,24 @@ public class Autentication extends JFrame {
 	private JLabel passwordLabel;
 	private BotonAnimacion signInBtn;
 	private JButton passwordBtn;
-
+	private UserDTO user;
 	private char echoCharContrasenya;
 	private boolean contrasenyaVisible;
+	private JPanel panel;
 
 	public Autentication() {
 		Notifications.getInstance().setJFrame(this);
 		GlassPanePopup.install(this);
-		this.setTitle("Control Docente");
+		this.setTitle("Conest");
 		FlatLightLaf.setup();
+		UIManager.put("PasswordField.showRevealButton", false);
+		UIManager.put("PasswordField.showCapsLock", false);
+		UIManager.put("Component.selectionBackground", VisualDefinitions.P9);
+		UIManager.put("TextField.selectionBackground", VisualDefinitions.P9);
+		UIManager.put("Spinner.selectionBackground", VisualDefinitions.P9);
+		UIManager.put("TextField.caretForeground", VisualDefinitions.P6);
+		UIManager.put("PasswordField.selectionBackground", VisualDefinitions.P9);
+		UIManager.put("PasswordField.caretForeground", VisualDefinitions.P6);
 		this.setUndecorated(true);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Autentication.class.getResource("/visual/icons/favicon.png")));
 		this.setBounds(100, 100, VisualDefinitions.DIMENSION_AUTENTICATION.width, VisualDefinitions.DIMENSION_AUTENTICATION.height);
@@ -87,17 +103,6 @@ public class Autentication extends JFrame {
 
 		topPanel = new TopPanel(VisualDefinitions.TOP_PANEL_COLOR, this, "Autenticación");
 
-		image = new ImagenAnim(3500);
-		image.addImage(new ImageIcon(Autentication.class.getResource("/visual/img/a01.png")));
-		image.addImage(new ImageIcon(Autentication.class.getResource("/visual/img/a02.png")));
-		image.addImage(new ImageIcon(Autentication.class.getResource("/visual/img/a03.jpg")));
-		image.addImage(new ImageIcon(Autentication.class.getResource("/visual/img/a04.png")));
-		
-		image.iniciarAnimacion();
-		image.setBackground(Color.WHITE);
-		image.setBounds(0, 45, 507, 467);
-		image.setBorder(new MatteBorder(0, 2, 2, 2, (Color) new Color(0, 0, 0)));
-
 		panelLogin = new JPanel();
 		panelLogin.setBackground(Color.WHITE);
 		panelLogin.setBounds(507, 45, 293, 467);
@@ -105,7 +110,7 @@ public class Autentication extends JFrame {
 
 		avatar = new AvatarCircular(new ImageIcon(Autentication.class.getResource("/visual/icons/user.png")), VisualDefinitions.SIZE_AVATAR_BORDER);
 		avatar.setBounds(70, 45, 150, 150);
-		avatar.setForeground(VisualDefinitions.COLOR_BTN_BASE);
+		avatar.setForeground(VisualDefinitions.COLOR_AVATAR_BORDER);
 
 		userLabel = new JLabel("Correo");
 		userLabel.setBounds(44, 217, 203, 32);
@@ -115,6 +120,14 @@ public class Autentication extends JFrame {
 		userField = new JTextFieldModificado();
 		userField.setLimite(VisualDefinitions.MAX_CARACT_USER);
 		userField.setBounds(44, 249, 203, 32);
+		userField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+					passwordField.requestFocus();
+				}
+			}
+		});
 		userField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -152,9 +165,10 @@ public class Autentication extends JFrame {
 		passwordField.setBounds(44, 324, 171, 32);
 		passwordField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent e) {
-				if(passwordField.getPassword().length==VisualDefinitions.MAX_CARACT_PASSWORD)
-					e.consume();
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+					signInBtn.doClick();
+				}
 			}
 		});
 		passwordField.addFocusListener(new FocusAdapter() {
@@ -238,53 +252,55 @@ public class Autentication extends JFrame {
 		passwordBtn.setIcon(Auxiliar.adjustImage(new Dimension(32,32), Autentication.class.getResource("/visual/icons/showP0.png")));
 
 		signInBtn = new BotonAnimacion();
-//		usuario = null;
+		user = null;
 		signInBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean autenticado = true;
+				boolean authenticated = true;
 				try {
-					//usuario = Auxiliar.seguridad(campoUsuario.getText(),String.valueOf(campoContrasenya.getPassword()));
+					user = ServicesLocator.getAuthServices().authSecurity(userField.getText(), String.valueOf(passwordField.getPassword()));
 				}
 				catch(Exception ex) {
-//					autenticado = false;
-//					String mensaje = ex.getMessage(); 
-//					if(mensaje.equals(ErroresInterfazGrafica.ERROR_CAMPO_VACIO)) {
-//						campoUsuario.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
-//						campoContrasenya.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
-//						contrasenyaBtn.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
-//					}
-//					else if(mensaje.equals(ErroresInterfazGrafica.ERROR_CORREO_NO_VALIDO) || mensaje.equals(ErroresInterfazGrafica.ERROR_CAMPO_VACIO_USUARIO))
-//						campoUsuario.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
-//					else if(mensaje.equals(ErroresInterfazGrafica.ERROR_CONTRASENYA_NO_VALIDA) || mensaje.equals(ErroresInterfazGrafica.ERROR_CAMPO_VACIO_CONTRASENYA)) {
-//						campoContrasenya.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
-//						contrasenyaBtn.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
-//					}
-//					Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_RIGHT, 3500, mensaje);
+					authenticated = false;
+					String message = ex.getMessage();
+					if(ex instanceof SQLException || ex instanceof ClassNotFoundException)
+						message = VisualErrors.ERROR_SQL;
+					if(message.equals(VisualErrors.ERROR_CAMPO_VACIO)) {
+						userField.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
+						passwordField.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
+						passwordBtn.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
+					}
+					else if(message.equals(VisualErrors.ERROR_CORREO_NO_VALIDO) || message.equals(VisualErrors.ERROR_CAMPO_VACIO_USUARIO))
+						userField.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
+					else if(message.equals(VisualErrors.ERROR_CONTRASENYA_NO_VALIDA) || message.equals(VisualErrors.ERROR_CAMPO_VACIO_CONTRASENYA)) {
+						passwordField.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
+						passwordBtn.setBorder(new MatteBorder(0, 0, 2, 0, Color.RED));
+					}
+					Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, 3500, message);
+
 				}
 				finally{
-					if(autenticado) {
-						boolean bypass = true;
-//						if(usuario instanceof UsuarioEstudiante && ((UsuarioEstudiante)usuario).getFacultad().equals(NombreFacultad.INDUSTRIAL)) {
-//							contadorInd++;
-//							bypass = contadorInd>=3;
-//							if(!bypass)
-//								Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_RIGHT, 3500, "El término\"Industrial\" no se encuentra dentro del conjunto de Ingenierías... Intentar Nuevamente");
-//						}
+					if(authenticated) {
+						Option o = OptionConstructor.constructOption(VisualDefinitions.TOP_PANEL_COLOR, false);
+						MessageSinCancel m = new MessageSinCancel("Bienvenido/a", "Bienvenido/a de nuevo " + getWelcomeName());
+						m.eventOK(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								GlassPanePopup.closePopupLast();
+								terminarVentanaLogin();
+							}
+						});
+						m.addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyTyped(KeyEvent e) {
+								GlassPanePopup.closePopupLast();
+								terminarVentanaLogin();
+							}
+						});
+						m.requestFocus();
+						GlassPanePopup.showPopup(m, o);
+						m.requestFocus();
 
-						if(bypass) {
-							Option o = OptionConstructor.constructOption(VisualDefinitions.TOP_PANEL_COLOR, false);
-							MessageSinCancel m = new MessageSinCancel("Bienvenido/a", "Bienvenido/a de nuevo ");
-//							MessageSinCancel m = new MessageSinCancel("Bienvenido/a", "Bienvenido/a de nuevo "+ usuario.getNombre());
-							m.eventOK(new ActionListener() {
-								@Override
-								public void actionPerformed(ActionEvent e) {
-									GlassPanePopup.closePopupLast();
-									terminarVentanaLogin();
-								}
-							});
-							GlassPanePopup.showPopup(m, o);
-						}
 					}
 				}
 			}
@@ -309,7 +325,22 @@ public class Autentication extends JFrame {
 		signInBtn.setBackground(VisualDefinitions.COLOR_BTN_BASE);
 		panelBase.setLayout(null);
 		panelBase.add(topPanel);
-		panelBase.add(image);
+
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 45, 507, 467);
+		panelBase.add(panel);
+		panel.setLayout(null);
+
+		image = new ImagenAnim(3500);
+		image.setBounds(0, 0, 507, 467);
+		panel.add(image);
+		image.addImage(new ImageIcon(Autentication.class.getResource("/visual/img/logo.png")));
+		image.addImage(new ImageIcon(Autentication.class.getResource("/visual/img/a02.png")));
+
+		image.iniciarAnimacion();
+		image.setBackground(Color.WHITE);
+		image.setBorder(new MatteBorder(0, 2, 2, 2, (Color) new Color(0, 0, 0)));
 		panelBase.add(panelLogin);
 		panelLogin.setLayout(null);
 		panelLogin.add(avatar);
@@ -325,25 +356,55 @@ public class Autentication extends JFrame {
 
 	}
 
+
 	private void terminarVentanaLogin() {
 		image.detenerAnimacion();
-//		Universidad.getInstancia().actualizar();
-//		Inicializadora.guardarDatosAplicacion();
-//		if(usuario instanceof UsuarioEstudiante) {
-//			AppPrincipal a = new AppPrincipal((UsuarioEstudiante)usuario);
-//			a.setVisible(true);
-//			NombreFacultad f = ((UsuarioEstudiante)usuario).getFacultad();
-//			if(Universidad.getInstancia().juegosFinalizados() && Universidad.getInstancia().facultadGanadora(f)) {
-//				ConfetiJDialog ventana = new ConfetiJDialog(a.getThis(), true, Archivador.getEsquemaColores(f).getPanelMovilBase());
-//				ventana.setVisible(true);
-//			}
-//				
-//		}
-//		else {
-//			AppPrincipalAdmin b = AppPrincipalAdmin.getInstancia((UsuarioAdmin)usuario);
-//			b.setVisible(true);
-//			
-//		}
+		MainScreenBasic main = null;
+		String role = user.getRole().getRole();
+		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		if(role.equals("Estudiante")) {
+			try {
+				StudentDTO std = ServicesLocator.getStudentServices().getStudent(user.getIdStd());
+				main = new MainScreenStudent(std, user);
+			} catch (ClassNotFoundException | SQLException e) {
+				main = new MainScreenStudent(null, null);
+			}
+		}
+		else if(role.equals("Secretario Docente"))
+			main = new MainScreenTeachingSecretary("Máster", user);
+		else 
+			main = new MainScreenAdmin("Admin", user);
+		
+		main.setVisible(true);
 		this.dispose();
+		if(role.equals("Secretario Docente")) {
+			try {
+				if(ServicesLocator.getStudentServices().validatePromotion()) {
+					Notifications.getInstance().show(Notifications.Type.INFO, Location.BOTTOM_RIGHT, 4500, "La funcionalidad de promoción de los estudiantes\n se encuentra actualmente disponible.\n Para poder realizar esta operación seleccione\n la promoción en la pestaña de <Alumnos>,\n en la esquina superior derecha.");
+				}
+			} catch (ClassNotFoundException | SQLException e1) {
+				Notifications.getInstance().show(Notifications.Type.ERROR, Location.BOTTOM_RIGHT, 3500, VisualErrors.ERROR_SQL);
+			}
+		}
+	}
+
+	private String getWelcomeName() {
+		String s = "";
+		String role = user.getRole().getRole();
+		if(role.equals("Estudiante")) {
+			try {
+				StudentDTO std = ServicesLocator.getStudentServices().getStudent(user.getIdStd());
+				s = std.getNames() + " " + std.getLastNames();
+			} catch (ClassNotFoundException | SQLException e) {
+				s = "NONE";
+			}
+		}
+		else if(role.equals("Secretario Docente"))
+			s = "Máster";
+		else 
+			s = "Admin";
+		
+		
+		return s;
 	}
 }

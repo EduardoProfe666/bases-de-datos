@@ -22,12 +22,16 @@ public class Main {
 		Locale.setDefault(new Locale("es"));
 		FlatLightLaf.setup();
 		
+		
 		try {
 			
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					SplashScreen ss = new SplashScreen();
 					ss.setVisible(true);
+					
+//					Autentication aa = new Autentication();
+//					aa.setVisible(true);
 				}
 			});
 			
