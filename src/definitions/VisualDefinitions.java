@@ -3,6 +3,8 @@ package definitions;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import utils.ColorScheme;
+
 /**
  * 
  * Class of general definitions about the app's visual
@@ -29,7 +31,7 @@ public final class VisualDefinitions {
 	 */
 	public static final Dimension DIMENSION_MAIN_APP = new Dimension(1200,675);
 	/**
-	 * Dialogs Dimensions. Resolution: 800x500. Aspect Ratio: 7:5
+	 * Dialogs Dimensions. Resolution: 700x500. Aspect Ratio: 7:5
 	 */
 	public static final Dimension DIMENSION_DIALOGS = new Dimension(700,500);
 
@@ -191,44 +193,66 @@ public final class VisualDefinitions {
 
 
 	// Admin Colors
-	public static final Color Va1 = new Color(135,255,135);
-	public static final Color Va2 = new Color(51,204,51);
-	public static final Color Va3 = new Color(42,168,42);
-	public static final Color Va4 = new Color(113,255,113);
-	public static final Color Va5 = new Color(175,235,175);
-	public static final Color Va6 = new Color(142,218,142);
+	public static final Color P1 = new Color(255,95,176);
+	public static final Color P2 = new Color(255,138,188);
+	public static final Color P3 = new Color(255,167,211);
+	public static final Color P4 = new Color(255,56,156);
+	public static final Color P5 = new Color(255,46,150);
+	public static final Color P6 = new Color(255,0,128);
+	public static final Color P7 = new Color(255,112,184);
+	public static final Color P8 = new Color(255,189,222);
+	public static final Color P9 = new Color(255,153,204);
+	public static final Color P10 = new Color(220,127,176);
+	public static final Color P11 = new Color(206,75,145);
+	public static final Color P12 = new Color(184,50,122);
+	
 
 
 
 	// General Definitions
 	public static final int ROUND_BORDER = 40;
 	public static final String EXIT_QUESTION = "¿Desea salir de la aplicación?";
-	public static final String SIGN_OFF_QUESTIONS = "¿Desea cerrar sesión?";
-	public static final Color TOP_PANEL_COLOR = VISUAL_COLORS_6;
+	public static final String SIGN_OFF_QUESTION = "¿Desea cerrar sesión?";
+	public static final Color TOP_PANEL_COLOR = P7;
 
 	// SplashScreen Definitions
-	public static final Color GRADIENT_START_SP = C7;
-	public static final Color GRADIENT_END_SP = C6;
-	public static final Color COLOR_ANIM_START_SP = new Color(191,191,191,50);
-	public static final Color COLOR_ANIM_END_SP = new Color(191,191,191,200);
-	public static final Color COLOR_PROGRESS_BAR = C8;
+//	public static final Color GRADIENT_START_SP = C7;
+//	public static final Color GRADIENT_END_SP = C6;
+	public static final Color GRADIENT_START_SP = new Color(255,229,242);
+	public static final Color GRADIENT_END_SP = new Color(255,173,214);
+	public static final Color COLOR_ANIM_START_SP = new Color(255,112,184,50);
+	public static final Color COLOR_ANIM_END_SP = new Color(255,112,184,200);
+	public static final Color COLOR_PROGRESS_BAR = P7;
 	public static final int DELAY_PROGRESS_BAR = 80; //ms
 
 
 	// Autentication Definitions
 	public static final int SIZE_AVATAR_BORDER = 4;
-	public static final Color COLOR_AVATAR_BORDER = new Color(0,83,41);
+	public static final Color COLOR_AVATAR_BORDER = P7;
 	public static final int MAX_CARACT_USER = 60;
 	public static final int MAX_CARACT_PASSWORD = 25;
 	public static final String PLACEHOLDER_USER = "Ingrese su correo";
 	public static final String PLACEHOLDER_PASSWORD = "???????????";
-	public static final Color COLOR_USER_BORDER = VISUAL_COLORS_5;
-	public static final Color COLOR_PASSWORD_BORDER = VISUAL_COLORS_5;
-	public static final Color COLOR_BTN_BASE = VISUAL_COLORS_2;
-	public static final Color COLOR_BTN_HOVER = VISUAL_COLORS_4;
-	public static final Color COLOR_BTN_EFfECT = VISUAL_COLORS_6;
+	public static final Color COLOR_USER_BORDER = P6;
+	public static final Color COLOR_PASSWORD_BORDER = P6;
+	public static final Color COLOR_BTN_BASE = P7;
+	public static final Color COLOR_BTN_HOVER = P1;
+	public static final Color COLOR_BTN_EFfECT = P2;
 	public static final Color COLOR_LBL_CUJAE = VISUAL_COLORS_2;
-
+	
+	
+	// Color Schemes
+	public static ColorScheme getColorSchemeStudent() {
+		return null;
+	}
+	
+	public static ColorScheme getColorSchemeAdmin() {
+		return null;
+	}
+	
+	public static ColorScheme getColorSchemeTeachingSecretary() {
+		return null;
+	}
 
 
 

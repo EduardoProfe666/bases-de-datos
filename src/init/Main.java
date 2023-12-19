@@ -22,12 +22,29 @@ public class Main {
 		Locale.setDefault(new Locale("es"));
 		FlatLightLaf.setup();
 		
+		
 		try {
+//			File f = new File("db.env");
+//			if(!f.exists()) {
+//				throw new RuntimeException("No se encuentra el fichero <db.env> con la información de acceso a la base de datos");
+//			}
+//			f = new File("favicon.png");
+//			if(!f.exists()) {
+//				throw new RuntimeException("No se encuentra el fichero <favicon.png> con el logo de la aplicación");
+//			}
+//			f  = new File("reports/r1_alumnos.jasper");
+//			if(!f.exists()) {
+//				throw new RuntimeException("No se encuentran los ficheros de los reportes");
+//			}
+//			
 			
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					SplashScreen ss = new SplashScreen();
 					ss.setVisible(true);
+					
+//					Autentication aa = new Autentication();
+//					aa.setVisible(true);
 				}
 			});
 			
