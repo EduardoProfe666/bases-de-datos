@@ -49,6 +49,7 @@ public class PanelReportsTS extends BasicPanelMainScreen{
 				try {
 					ServicesLocator.getReportServices().loadReport1();
 				} catch (ClassNotFoundException | SQLException | JRException e1) {
+//					JOptionPane.showMessageDialog(null, e1.getMessage());
 					Notifications.getInstance().show(Notifications.Type.ERROR, Location.BOTTOM_RIGHT, 3500, VisualErrors.ERROR_SQL);
 				}
 			}

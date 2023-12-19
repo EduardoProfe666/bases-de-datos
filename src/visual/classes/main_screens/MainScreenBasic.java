@@ -50,7 +50,7 @@ import services.ServicesLocator;
 import utils.Auxiliar;
 import utils.ColorScheme;
 import utils.Encription;
-import utils.Validaciones;
+import utils.Validations;
 import visual.components.PromotionButton;
 import visual.components.SemiGlassPane;
 import visual.components.TopPanel;
@@ -175,7 +175,7 @@ public abstract class MainScreenBasic extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if(String.valueOf(m.lastP.getPassword()).equals(Encription.decode(LogicDefinitions.SECRET_KEY_PASSWORD, usuario.getPassword()))) {
-							if(Validaciones.validarStringNoVacio(String.valueOf(m.passwordField.getPassword()))) {
+							if(Validations.validateStringNotEmptyOrNull(String.valueOf(m.passwordField.getPassword()))) {
 								if(String.valueOf(m.passwordField.getPassword()).equals(String.valueOf(m.passwordField_1.getPassword()))) {
 									GlassPanePopup.closePopupLast();
 									try {

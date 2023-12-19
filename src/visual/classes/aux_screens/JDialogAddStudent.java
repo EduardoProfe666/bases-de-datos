@@ -24,7 +24,7 @@ import raven.toast.Notifications;
 import raven.toast.Notifications.Location;
 import services.ServicesLocator;
 import utils.ColorScheme;
-import utils.Validaciones;
+import utils.Validations;
 import visual.classes.main_screens.MainScreenTeachingSecretary;
 import visual.models.comboboxs.GroupComboBoxModel;
 import visual.models.comboboxs.YearComboBoxModel;
@@ -247,19 +247,19 @@ public class JDialogAddStudent extends JDialogGeneral{
 	public boolean validateInterface() {
 		boolean v = true;
 
-		if(!Validaciones.validarStringNoVacio(names.getText()) || !Validaciones.validarStringNoTodoEspacio(names.getText()) || !Validaciones.validarTamString(names.getText(), 1, 256)) {
+		if(!Validations.validateStringNotEmptyOrNull(names.getText()) || !Validations.validateStringNotAllSpace(names.getText()) || !Validations.validateTamString(names.getText(), 1, 256)) {
 			v = false;
 			names.putClientProperty("JComponent.outline", "error");
 		}
 
 
-		if(!Validaciones.validarStringNoVacio(lastnames.getText()) || !Validaciones.validarStringNoTodoEspacio(lastnames.getText()) ||  !Validaciones.validarTamString(lastnames.getText(), 1, 256)) {
+		if(!Validations.validateStringNotEmptyOrNull(lastnames.getText()) || !Validations.validateStringNotAllSpace(lastnames.getText()) ||  !Validations.validateTamString(lastnames.getText(), 1, 256)) {
 			v = false;
 			lastnames.putClientProperty("JComponent.outline", "error");
 		}
 
 
-		if(!Validaciones.validarStringNoVacio(municipal.getText()) || !Validaciones.validarStringNoTodoEspacio(municipal.getText()) ||  !Validaciones.validarTamString(municipal.getText(), 1, 64)) {
+		if(!Validations.validateStringNotEmptyOrNull(municipal.getText()) || !Validations.validateStringNotAllSpace(municipal.getText()) ||  !Validations.validateTamString(municipal.getText(), 1, 64)) {
 			v = false;
 			municipal.putClientProperty("JComponent.outline", "error");
 		}

@@ -1,0 +1,2 @@
+La aplicación requiere de todos los archivos presentes en este directorio para su correcto funcionamiento.
+Una vez que instale correctamente la base de datos, modifique la información del archivo db.env, para así poder otorgar la información de autenticación a la base de datos y la aplicación poder trabajar con ella.

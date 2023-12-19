@@ -43,12 +43,12 @@ import visual.classes.panels_main_screens_teaching_secretary.PanelSubjectsTS;
  */
 public class MainScreenTeachingSecretary extends MainScreenBasic{
 	private static final long serialVersionUID = 1L;
-	private PanelOpcion opcionAlumnos;
-	private JComponent panelSeleccionado;
-	private PanelOpcion opcionAsignaturas;
-	private PanelOpcion opcionEvaluaciones;
-	private PanelOpcion opcionEscalafon;
-	private PanelOpcion opcionReportes;
+	private PanelOpcion optionStudents;
+	private JComponent selectedPanel;
+	private PanelOpcion optionSubjects;
+	private PanelOpcion optionEvaluations;
+	private PanelOpcion optionEscalafon;
+	private PanelOpcion optionReports;
 	private static final ColorScheme e = new ColorScheme(VisualDefinitions.P1, VisualDefinitions.P8, Color.BLACK, Color.BLACK,
 			VisualDefinitions.P8, VisualDefinitions.P1, VisualDefinitions.P8, VisualDefinitions.P1, 
 			VisualDefinitions.P2, VisualDefinitions.P9, Color.BLACK, VisualDefinitions.P8, VisualDefinitions.P1, 
@@ -94,217 +94,217 @@ public class MainScreenTeachingSecretary extends MainScreenBasic{
 			}
 		});
 		
-		opcionAlumnos = new PanelOpcion();
-		opcionAlumnos.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
-		opcionAlumnos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		opcionAlumnos.addMouseListener(new MouseAdapter() {
+		optionStudents = new PanelOpcion();
+		optionStudents.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
+		optionStudents.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		optionStudents.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent es) {
-				opcionAlumnos.setBackground(color_scheme.getPanelOpcionHover());
+				optionStudents.setBackground(color_scheme.getPanelOpcionHover());
 			}
 			@Override
 			public void mouseExited(MouseEvent eS) {
-				if(opcionAlumnos.equals(panelSeleccionado))
-					opcionAlumnos.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				if(optionStudents.equals(selectedPanel))
+					optionStudents.setBackground(color_scheme.getPanelOpcionSeleccionado());
 				else
-					opcionAlumnos.setBackground(color_scheme.getPanelContenedorOpciones());
+					optionStudents.setBackground(color_scheme.getPanelContenedorOpciones());
 			}
 			@Override
 			public void mouseClicked(MouseEvent es) {
 				panelPrincipall.setSelectedIndex(0);
 				opcionLbl.setText("ALUMNOS");
-				panelSeleccionado.setBackground(color_scheme.getPanelContenedorOpciones());
-				panelSeleccionado = opcionAlumnos;
-				panelSeleccionado.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				selectedPanel.setBackground(color_scheme.getPanelContenedorOpciones());
+				selectedPanel = optionStudents;
+				selectedPanel.setBackground(color_scheme.getPanelOpcionSeleccionado());
 			}
 		});
-		opcionAlumnos.setLayout(null);
-		opcionAlumnos.setSeleccionado(true);
-		opcionAlumnos.setOpaque(true);
-		opcionAlumnos.setBackground(color_scheme.getPanelContenedorOpciones());
-		opcionAlumnos.setBounds(0, 11, 300, 57);
-		optionsPanel.add(opcionAlumnos);
-		panelSeleccionado = opcionAlumnos;
-		panelSeleccionado.setBackground(color_scheme.getPanelOpcionSeleccionado());
+		optionStudents.setLayout(null);
+		optionStudents.setSeleccionado(true);
+		optionStudents.setOpaque(true);
+		optionStudents.setBackground(color_scheme.getPanelContenedorOpciones());
+		optionStudents.setBounds(0, 11, 300, 57);
+		optionsPanel.add(optionStudents);
+		selectedPanel = optionStudents;
+		selectedPanel.setBackground(color_scheme.getPanelOpcionSeleccionado());
 		
 		Imagen logoAlumnos = new Imagen(new ImageIcon(MainScreenBasic.class.getResource("/visual/icons/std.png")));
 		logoAlumnos.setBounds(67, 9, 38, 38);
-		opcionAlumnos.add(logoAlumnos);
+		optionStudents.add(logoAlumnos);
 
 		JLabel textoAlumnos = new JLabel("ALUMNOS");
 		textoAlumnos.setForeground(color_scheme.getPanelOpcionTexto());
 		textoAlumnos.setHorizontalTextPosition(SwingConstants.CENTER);
 		textoAlumnos.setFont(new Font("Roboto Medium", Font.PLAIN, 18));
 		textoAlumnos.setBounds(126, 12, 168, 33);
-		opcionAlumnos.add(textoAlumnos);
+		optionStudents.add(textoAlumnos);
 		
-		opcionAsignaturas = new PanelOpcion();
-		opcionAsignaturas.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
-		opcionAsignaturas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		opcionAsignaturas.addMouseListener(new MouseAdapter() {
+		optionSubjects = new PanelOpcion();
+		optionSubjects.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
+		optionSubjects.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		optionSubjects.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent es) {
-				opcionAsignaturas.setBackground(color_scheme.getPanelOpcionHover());
+				optionSubjects.setBackground(color_scheme.getPanelOpcionHover());
 			}
 			@Override
 			public void mouseExited(MouseEvent eS) {
-				if(opcionAsignaturas.equals(panelSeleccionado))
-					opcionAsignaturas.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				if(optionSubjects.equals(selectedPanel))
+					optionSubjects.setBackground(color_scheme.getPanelOpcionSeleccionado());
 				else
-					opcionAsignaturas.setBackground(color_scheme.getPanelContenedorOpciones());
+					optionSubjects.setBackground(color_scheme.getPanelContenedorOpciones());
 			}
 			@Override
 			public void mouseClicked(MouseEvent es) {
 				panelPrincipall.setSelectedIndex(2);
 				opcionLbl.setText("ASIGNATURAS");
-				panelSeleccionado.setBackground(color_scheme.getPanelContenedorOpciones());
-				panelSeleccionado = opcionAsignaturas;
-				panelSeleccionado.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				selectedPanel.setBackground(color_scheme.getPanelContenedorOpciones());
+				selectedPanel = optionSubjects;
+				selectedPanel.setBackground(color_scheme.getPanelOpcionSeleccionado());
 			}
 		});
-		opcionAsignaturas.setLayout(null);
-		opcionAsignaturas.setSeleccionado(true);
-		opcionAsignaturas.setOpaque(true);
-		opcionAsignaturas.setBackground(color_scheme.getPanelContenedorOpciones());
-		opcionAsignaturas.setBounds(0, 127, 300, 57);
-		optionsPanel.add(opcionAsignaturas);
+		optionSubjects.setLayout(null);
+		optionSubjects.setSeleccionado(true);
+		optionSubjects.setOpaque(true);
+		optionSubjects.setBackground(color_scheme.getPanelContenedorOpciones());
+		optionSubjects.setBounds(0, 127, 300, 57);
+		optionsPanel.add(optionSubjects);
 
 		Imagen logoAsignaturas = new Imagen(new ImageIcon(MainScreenBasic.class.getResource("/visual/icons/sub.png")));
 		logoAsignaturas.setBounds(67, 9, 38, 38);
-		opcionAsignaturas.add(logoAsignaturas);
+		optionSubjects.add(logoAsignaturas);
 
 		JLabel textoAsignaturas = new JLabel("ASIGNATURAS");
 		textoAsignaturas.setForeground(color_scheme.getPanelOpcionTexto());
 		textoAsignaturas.setHorizontalTextPosition(SwingConstants.CENTER);
 		textoAsignaturas.setFont(new Font("Roboto Medium", Font.PLAIN, 18));
 		textoAsignaturas.setBounds(126, 12, 168, 33);
-		opcionAsignaturas.add(textoAsignaturas);
+		optionSubjects.add(textoAsignaturas);
 		
-		opcionEvaluaciones = new PanelOpcion();
-		opcionEvaluaciones.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
-		opcionEvaluaciones.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		opcionEvaluaciones.addMouseListener(new MouseAdapter() {
+		optionEvaluations = new PanelOpcion();
+		optionEvaluations.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
+		optionEvaluations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		optionEvaluations.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent es) {
-				opcionEvaluaciones.setBackground(color_scheme.getPanelOpcionHover());
+				optionEvaluations.setBackground(color_scheme.getPanelOpcionHover());
 			}
 			@Override
 			public void mouseExited(MouseEvent eS) {
-				if(opcionEvaluaciones.equals(panelSeleccionado))
-					opcionEvaluaciones.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				if(optionEvaluations.equals(selectedPanel))
+					optionEvaluations.setBackground(color_scheme.getPanelOpcionSeleccionado());
 				else
-					opcionEvaluaciones.setBackground(color_scheme.getPanelContenedorOpciones());
+					optionEvaluations.setBackground(color_scheme.getPanelContenedorOpciones());
 			}
 			@Override
 			public void mouseClicked(MouseEvent es) {
 				panelPrincipall.setSelectedIndex(3);
 				opcionLbl.setText("EVALUACIONES");
-				panelSeleccionado.setBackground(color_scheme.getPanelContenedorOpciones());
-				panelSeleccionado = opcionEvaluaciones;
-				panelSeleccionado.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				selectedPanel.setBackground(color_scheme.getPanelContenedorOpciones());
+				selectedPanel = optionEvaluations;
+				selectedPanel.setBackground(color_scheme.getPanelOpcionSeleccionado());
 			}
 		});
-		opcionEvaluaciones.setLayout(null);
-		opcionEvaluaciones.setSeleccionado(true);
-		opcionEvaluaciones.setOpaque(true);
-		opcionEvaluaciones.setBackground(color_scheme.getPanelContenedorOpciones());
-		opcionEvaluaciones.setBounds(0, 185, 300, 57);
-		optionsPanel.add(opcionEvaluaciones);
+		optionEvaluations.setLayout(null);
+		optionEvaluations.setSeleccionado(true);
+		optionEvaluations.setOpaque(true);
+		optionEvaluations.setBackground(color_scheme.getPanelContenedorOpciones());
+		optionEvaluations.setBounds(0, 185, 300, 57);
+		optionsPanel.add(optionEvaluations);
 
 		Imagen logoEvaluaciones = new Imagen(new ImageIcon(MainScreenBasic.class.getResource("/visual/icons/eval.png")));
 		logoEvaluaciones.setBounds(67, 9, 38, 38);
-		opcionEvaluaciones.add(logoEvaluaciones);
+		optionEvaluations.add(logoEvaluaciones);
 
 		JLabel textoEvaluaciones = new JLabel("EVALUACIONES");
 		textoEvaluaciones.setForeground(color_scheme.getPanelOpcionTexto());
 		textoEvaluaciones.setHorizontalTextPosition(SwingConstants.CENTER);
 		textoEvaluaciones.setFont(new Font("Roboto Medium", Font.PLAIN, 18));
 		textoEvaluaciones.setBounds(126, 12, 168, 33);
-		opcionEvaluaciones.add(textoEvaluaciones);
+		optionEvaluations.add(textoEvaluaciones);
 		
-		opcionEscalafon = new PanelOpcion();
-		opcionEscalafon.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
-		opcionEscalafon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		opcionEscalafon.addMouseListener(new MouseAdapter() {
+		optionEscalafon = new PanelOpcion();
+		optionEscalafon.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
+		optionEscalafon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		optionEscalafon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent es) {
-				opcionEscalafon.setBackground(color_scheme.getPanelOpcionHover());
+				optionEscalafon.setBackground(color_scheme.getPanelOpcionHover());
 			}
 			@Override
 			public void mouseExited(MouseEvent eS) {
-				if(opcionEscalafon.equals(panelSeleccionado))
-					opcionEscalafon.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				if(optionEscalafon.equals(selectedPanel))
+					optionEscalafon.setBackground(color_scheme.getPanelOpcionSeleccionado());
 				else
-					opcionEscalafon.setBackground(color_scheme.getPanelContenedorOpciones());
+					optionEscalafon.setBackground(color_scheme.getPanelContenedorOpciones());
 			}
 			@Override
 			public void mouseClicked(MouseEvent es) {
 				panelPrincipall.setSelectedIndex(4);
 				opcionLbl.setText("ESCALAFÓN");
-				panelSeleccionado.setBackground(color_scheme.getPanelContenedorOpciones());
-				panelSeleccionado = opcionEscalafon;
-				panelSeleccionado.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				selectedPanel.setBackground(color_scheme.getPanelContenedorOpciones());
+				selectedPanel = optionEscalafon;
+				selectedPanel.setBackground(color_scheme.getPanelOpcionSeleccionado());
 			}
 		});
-		opcionEscalafon.setLayout(null);
-		opcionEscalafon.setSeleccionado(true);
-		opcionEscalafon.setOpaque(true);
-		opcionEscalafon.setBackground(color_scheme.getPanelContenedorOpciones());
-		opcionEscalafon.setBounds(0, 243, 300, 57);
-		optionsPanel.add(opcionEscalafon);
+		optionEscalafon.setLayout(null);
+		optionEscalafon.setSeleccionado(true);
+		optionEscalafon.setOpaque(true);
+		optionEscalafon.setBackground(color_scheme.getPanelContenedorOpciones());
+		optionEscalafon.setBounds(0, 243, 300, 57);
+		optionsPanel.add(optionEscalafon);
 
 		Imagen logoEscalafon = new Imagen(new ImageIcon(MainScreenBasic.class.getResource("/visual/icons/escalafon.png")));
 		logoEscalafon.setBounds(67, 9, 38, 38);
-		opcionEscalafon.add(logoEscalafon);
+		optionEscalafon.add(logoEscalafon);
 
 		JLabel textoEscalafon = new JLabel("ESCALAFÓN");
 		textoEscalafon.setForeground(color_scheme.getPanelOpcionTexto());
 		textoEscalafon.setHorizontalTextPosition(SwingConstants.CENTER);
 		textoEscalafon.setFont(new Font("Roboto Medium", Font.PLAIN, 18));
 		textoEscalafon.setBounds(126, 12, 168, 33);
-		opcionEscalafon.add(textoEscalafon);
+		optionEscalafon.add(textoEscalafon);
 		
-		opcionReportes = new PanelOpcion();
-		opcionReportes.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
-		opcionReportes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		opcionReportes.addMouseListener(new MouseAdapter() {
+		optionReports = new PanelOpcion();
+		optionReports.setBorder(new MatteBorder(0, 2, 0, 0, new Color(0,0,0)));
+		optionReports.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		optionReports.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent es) {
-				opcionReportes.setBackground(color_scheme.getPanelOpcionHover());
+				optionReports.setBackground(color_scheme.getPanelOpcionHover());
 			}
 			@Override
 			public void mouseExited(MouseEvent eS) {
-				if(opcionReportes.equals(panelSeleccionado))
-					opcionReportes.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				if(optionReports.equals(selectedPanel))
+					optionReports.setBackground(color_scheme.getPanelOpcionSeleccionado());
 				else
-					opcionReportes.setBackground(color_scheme.getPanelContenedorOpciones());
+					optionReports.setBackground(color_scheme.getPanelContenedorOpciones());
 			}
 			@Override
 			public void mouseClicked(MouseEvent es) {
 				panelPrincipall.setSelectedIndex(5);
 				opcionLbl.setText("REPORTES");
-				panelSeleccionado.setBackground(color_scheme.getPanelContenedorOpciones());
-				panelSeleccionado = opcionReportes;
-				panelSeleccionado.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				selectedPanel.setBackground(color_scheme.getPanelContenedorOpciones());
+				selectedPanel = optionReports;
+				selectedPanel.setBackground(color_scheme.getPanelOpcionSeleccionado());
 			}
 		});
-		opcionReportes.setLayout(null);
-		opcionReportes.setSeleccionado(true);
-		opcionReportes.setOpaque(true);
-		opcionReportes.setBackground(color_scheme.getPanelContenedorOpciones());
-		opcionReportes.setBounds(0, 300, 300, 57);
-		optionsPanel.add(opcionReportes);
+		optionReports.setLayout(null);
+		optionReports.setSeleccionado(true);
+		optionReports.setOpaque(true);
+		optionReports.setBackground(color_scheme.getPanelContenedorOpciones());
+		optionReports.setBounds(0, 300, 300, 57);
+		optionsPanel.add(optionReports);
 
 		Imagen logoReportes = new Imagen(new ImageIcon(MainScreenBasic.class.getResource("/visual/icons/reports.png")));
 		logoReportes.setBounds(67, 9, 38, 38);
-		opcionReportes.add(logoReportes);
+		optionReports.add(logoReportes);
 
 		JLabel textoReportes = new JLabel("REPORTES");
 		textoReportes.setForeground(color_scheme.getPanelOpcionTexto());
 		textoReportes.setHorizontalTextPosition(SwingConstants.CENTER);
 		textoReportes.setFont(new Font("Roboto Medium", Font.PLAIN, 18));
 		textoReportes.setBounds(126, 12, 168, 33);
-		opcionReportes.add(textoReportes);
+		optionReports.add(textoReportes);
 		
 		optionDismissal = new PanelOpcion();
 		optionDismissal.addMouseListener(new MouseAdapter() {
@@ -314,7 +314,7 @@ public class MainScreenTeachingSecretary extends MainScreenBasic{
 			}
 			@Override
 			public void mouseExited(MouseEvent eS) {
-				if(optionDismissal.equals(panelSeleccionado))
+				if(optionDismissal.equals(selectedPanel))
 					optionDismissal.setBackground(color_scheme.getPanelOpcionSeleccionado());
 				else
 					optionDismissal.setBackground(color_scheme.getPanelContenedorOpciones());
@@ -323,9 +323,9 @@ public class MainScreenTeachingSecretary extends MainScreenBasic{
 			public void mouseClicked(MouseEvent es) {
 				panelPrincipall.setSelectedIndex(1);
 				opcionLbl.setText("BAJAS");
-				panelSeleccionado.setBackground(color_scheme.getPanelContenedorOpciones());
-				panelSeleccionado = optionDismissal;
-				panelSeleccionado.setBackground(color_scheme.getPanelOpcionSeleccionado());
+				selectedPanel.setBackground(color_scheme.getPanelContenedorOpciones());
+				selectedPanel = optionDismissal;
+				selectedPanel.setBackground(color_scheme.getPanelOpcionSeleccionado());
 			}
 		});
 		optionDismissal.setLayout(null);

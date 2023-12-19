@@ -2,7 +2,6 @@ package visual.classes.aux_screens;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,13 +13,16 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import componentes.BotonAnimacion;
 import definitions.VisualDefinitions;
@@ -31,11 +33,10 @@ import raven.toast.Notifications;
 import raven.toast.Notifications.Location;
 import services.ServicesLocator;
 import utils.ColorScheme;
-import visual.models.comboboxs.IdStdComboBoxModel;
 
 public class JDialogReport6 extends JDialogGeneral {
 	private static final long serialVersionUID = 1L;
-	private JComboBox<String> idStd;
+	private JSpinner idStd;
 	private JRadioButton restringido;
 	private JRadioButton complete;
 	private JLabel courseLbl;
@@ -70,7 +71,8 @@ public class JDialogReport6 extends JDialogGeneral {
 		panelContenedor.add(panel);
 		panel.setLayout(null);
 		
-		idStd = new JComboBox<>();
+		idStd = new JSpinner();
+		
 		l = ServicesLocator.getStudentServices().getAllStudentNotDismissal();
 		Collections.sort(l, new Comparator<StudentDTO>() {
 
@@ -79,15 +81,20 @@ public class JDialogReport6 extends JDialogGeneral {
 				return Integer.compare(o1.getId(), o2.getId());
 			}
 		});
-		st = null;
-		idStd.setModel(new IdStdComboBoxModel(l));
-		idStd.setBounds(158, 26, 302, 23);
-		panel.add(idStd);
-		idStd.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				idStd.putClientProperty("JComponent.outline", null);
-				if(idStd.getSelectedIndex()<=0) {
-					st = null;
+		st = l.isEmpty() ? null : l.get(0);
+		idStd.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				int a = Integer.valueOf(idStd.getValue().toString());
+				st = null;
+				for(int i=0;i<l.size() && st==null;i++) {
+					if(l.get(i).getId()==a)
+						st = l.get(i);
+				}
+				
+				if(st==null) {
+					idStd.putClientProperty("JComponent.outline", "error");
 					names.setEnabled(false);
 					mun.setEnabled(false);
 					sex.setEnabled(false);
@@ -101,7 +108,7 @@ public class JDialogReport6 extends JDialogGeneral {
 					group.setText(groupp);
 				}
 				else {
-					st = l.get(idStd.getSelectedIndex()-1);
+					idStd.putClientProperty("JComponent.outline", null);
 					names.setEnabled(true);
 					mun.setEnabled(true);
 					sex.setEnabled(true);
@@ -114,9 +121,13 @@ public class JDialogReport6 extends JDialogGeneral {
 					year.setText(yearr+ServicesLocator.getAcademicYearServices().getYearsString().get(st.getGroup().getYear().getYear()));
 					group.setText(groupp+st.getGroup().getNumGroup()+"");
 				}
-			}
+				
+			} 
 		});
-		idStd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		idStd.setModel(new SpinnerNumberModel(Integer.valueOf(l.isEmpty() ? 0 : l.get(0).getId()), Integer.valueOf(l.isEmpty() ? 0 : l.get(0).getId()), Integer.valueOf(l.isEmpty() ? 0 : l.get(l.size()-1).getId()), Integer.valueOf(1)));
+		idStd.setValue(l.isEmpty() ? 0 : l.get(0).getId());
+		idStd.setBounds(158, 26, 302, 23);
+		panel.add(idStd);
 		idStd.setFont(new Font("Roboto Medium", Font.PLAIN, 17));
 		
 		courseLbl = new JLabel("Id del estudiante:");
@@ -136,7 +147,7 @@ public class JDialogReport6 extends JDialogGeneral {
 		complete.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if(aceptar!=null) {
-					idStd.setSelectedIndex(0);
+					idStd.setValue(l.isEmpty() ? 0 : l.get(0).getId());
 					boolean b = complete.isSelected();
 					panel.setEnabled(!b);
 					for(Component c : panel.getComponents())
@@ -181,9 +192,8 @@ public class JDialogReport6 extends JDialogGeneral {
 							dispose();
 						}
 						else {
-							int id = l.get(idStd.getSelectedIndex()-1).getId();
 
-							ServicesLocator.getReportServices().loadReport6Param(id);
+							ServicesLocator.getReportServices().loadReport6Param(st.getId());
 							dispose();
 						}
 
@@ -250,12 +260,26 @@ public class JDialogReport6 extends JDialogGeneral {
 		panel.add(group);
 		for(Component c : panel.getComponents())
 			c.setEnabled(false);
+		
+		if(st!=null) {		
+			names.setText(namess+st.getNames()+" "+st.getLastNames());
+			mun.setText(munn+st.getMunicipal());
+			sex.setText(sexx+(st.getSex()=='F' ? "Femenino" : "Masculino"));
+			year.setText(yearr+ServicesLocator.getAcademicYearServices().getYearsString().get(st.getGroup().getYear().getYear()));
+			group.setText(groupp+st.getGroup().getNumGroup()+"");
+		} else {			
+			names.setText(namess);
+			mun.setText(munn);
+			sex.setText(sexx);
+			year.setText(yearr);
+			group.setText(groupp);
+		}
 	}
 
 	public boolean validateInterface() {
 		boolean v = true;
 		
-		if(idStd.isEnabled() && idStd.getSelectedIndex()<=0) {
+		if(idStd.isEnabled() && st==null) {
 			v = false;
 			idStd.putClientProperty("JComponent.outline", "error");
 		}

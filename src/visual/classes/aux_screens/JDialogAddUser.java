@@ -30,7 +30,7 @@ import raven.toast.Notifications;
 import raven.toast.Notifications.Location;
 import services.ServicesLocator;
 import utils.ColorScheme;
-import utils.Validaciones;
+import utils.Validations;
 import visual.classes.panels_main_screen_admin.PanelUsersAdmin;
 import visual.models.comboboxs.RoleComboBoxModel;
 import visual.models.comboboxs.StudentComboBoxModel;
@@ -250,13 +250,13 @@ public class JDialogAddUser extends JDialogGeneral{
 	public boolean validateInterface() {
 		boolean v = true;
 
-		if(!Validaciones.validarStringNoVacio(correo.getText()) || !Validaciones.validarStringNoTodoEspacio(correo.getText()) || !Validaciones.validarTamString(correo.getText(), 1, 128)) {
+		if(!Validations.validateStringNotEmptyOrNull(correo.getText()) || !Validations.validateStringNotAllSpace(correo.getText()) || !Validations.validateTamString(correo.getText(), 1, 128)) {
 			v = false;
 			correo.putClientProperty("JComponent.outline", "error");
 		}
 
 		String p = String.valueOf(password.getPassword());
-		if(!Validaciones.validarStringNoVacio(p) || !Validaciones.validarStringNoTodoEspacio(p) ||  !Validaciones.validarTamString(p, 1, 64)) {
+		if(!Validations.validateStringNotEmptyOrNull(p) || !Validations.validateStringNotAllSpace(p) ||  !Validations.validateTamString(p, 1, 64)) {
 			v = false;
 			password.putClientProperty("JComponent.outline", "error");
 		}
