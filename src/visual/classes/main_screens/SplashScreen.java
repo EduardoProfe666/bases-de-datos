@@ -11,6 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanIJTheme;
@@ -41,6 +42,8 @@ public class SplashScreen extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SplashScreen.class.getResource("/visual/icons/favicon.png")));
 		FlatMaterialDeepOceanIJTheme.setup();
 		
+		UIManager.put( "ProgressBar.arc", 20);
+		
 		this.setBounds(100, 100, VisualDefinitions.DIMENSION_SPLASH_SCREEN.width, VisualDefinitions.DIMENSION_SPLASH_SCREEN.height);
 		this.setUndecorated(true);
 		this.addWindowListener(new WindowAdapter() {
@@ -51,20 +54,20 @@ public class SplashScreen extends JDialog {
 		});
 		
 		basePanel = new PanelAnimacionCurvas(VisualDefinitions.GRADIENT_START_SP,VisualDefinitions.GRADIENT_END_SP, VisualDefinitions.COLOR_ANIM_START_SP, VisualDefinitions.COLOR_ANIM_END_SP);
-		basePanel.iniciarAnimacion();
+		basePanel.iniciarAnimacion(); 
 		basePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		setContentPane(basePanel);
 		
 		logo = new Imagen(null);
 		logo.setImagen(new ImageIcon(SplashScreen.class.getResource("/visual/img/logo.png")));
-		logo.setBounds(156, 50, 200, 200);
+		logo.setBounds(131, 29, 250, 250);
 		
 	    progressBar = new JProgressBar();
 	    progressBar.setForeground(VisualDefinitions.COLOR_PROGRESS_BAR);
 	    progressBar.setBounds(144, 285, 223, 17);
 		
 		progressState = new JLabel("Cargando ...");
-		progressState.setBounds(108, 313, 295, 36);
+		progressState.setBounds(40, 313, 431, 36);
 		progressState.setHorizontalAlignment(SwingConstants.CENTER);
 		progressState.setForeground(Color.BLACK);
 		progressState.setFont(new Font("Roboto Medium", Font.PLAIN, 19));
@@ -105,11 +108,11 @@ public class SplashScreen extends JDialog {
 		String r = "";
 		
 		if(n<=20) 
-			r = "Cargando Núcleo ...";
+			r = "Cargando Sistema ...";
 		else if(n<=45) 
 			r = "Conectando ...";
 		else if(n<=68) 
-			r = "Sincronizando con la Nube ...";
+			r = "Sincronizando con la Base de Datos ...";
 		else if(n<=90) 
 			r = "Inicializando Interfaz ...";
 		else 
