@@ -20,6 +20,7 @@ public class ReportServices {
 	public void loadReport1() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r1_alumnos.jasper").getFile());
+//		File file = new File("reports/r1_alumnos.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -33,6 +34,7 @@ public class ReportServices {
 	public void loadReport2() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r2_asignatura.jasper").getFile());
+//		File file = new File("reports/r2_asignatura.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -46,6 +48,7 @@ public class ReportServices {
 	public void loadReport3Unparam() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r3_evaluaciones.jasper").getFile());
+//		File file = new File("reports/r3_evaluaciones.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -63,6 +66,7 @@ public class ReportServices {
 		
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r3_evaluacionesParam.jasper").getFile());
+//		File file = new File("reports/r3_evaluacionesParam.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, params,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -76,6 +80,7 @@ public class ReportServices {
 	public void loadReport4A() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r4A_promedio_anual.jasper").getFile());
+//		File file = new File("reports/r4A_promedio_anual.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -88,6 +93,7 @@ public class ReportServices {
 	
 	public void loadReport4F() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
+//		File file = new File("reports/r4F_promedio_final.jasper");
 		File file = new File(ReportServices.class.getResource("/reports/r4F_promedio_final.jasper").getFile());
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
@@ -102,6 +108,7 @@ public class ReportServices {
 	public void loadReport5A() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r5A_escalafon_anual.jasper").getFile());
+//		File file = new File("reports/r5A_escalafon_anual.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -115,6 +122,7 @@ public class ReportServices {
 	public void loadReport5G() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r5G_escalafon_grupo.jasper").getFile());
+//		File file = new File("reports/r5G_escalafon_grupo.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -128,6 +136,7 @@ public class ReportServices {
 	public void loadReport6Unparam() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r6_certificacion_de_notas.jasper").getFile());
+//		File file = new File("reports/r6_certificacion_de_notas.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -144,6 +153,7 @@ public class ReportServices {
 		
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r6_certificacion_de_notasParam.jasper").getFile());
+//		File file = new File("reports/r6_certificacion_de_notasParam.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, params,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -161,6 +171,7 @@ public class ReportServices {
 		
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r7_desaprobados.jasper").getFile());
+//		File file = new File("reports/r7_desaprobados.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, params,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -174,6 +185,7 @@ public class ReportServices {
 	public void loadReport8A() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r8A_baja_anual.jasper").getFile());
+//		File file = new File("reports/r8A_baja_anual.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -187,6 +199,7 @@ public class ReportServices {
 	public void loadReport8G() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
 		File file = new File(ReportServices.class.getResource("/reports/r8G_baja_grupo.jasper").getFile());
+//		File file = new File("reports/r8G_baja_grupo.jasper");
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);
 		JasperViewer view = new JasperViewer(print,false,new Locale("es"));
@@ -199,6 +212,7 @@ public class ReportServices {
 	
 	public void loadReport9() throws ClassNotFoundException, SQLException, JRException {
 		Connection con = ServicesLocator.getConnection();
+//		File file = new File("reports/r9_repitentes.jasper");
 		File file = new File(ReportServices.class.getResource("/reports/r9_repitentes.jasper").getFile());
 		JasperReport jr = (JasperReport) JRLoader.loadObject(file);
 		JasperPrint print = JasperFillManager.fillReport(jr, null,con);

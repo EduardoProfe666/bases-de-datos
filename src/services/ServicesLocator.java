@@ -96,7 +96,7 @@ public final class ServicesLocator {
 	
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Dotenv dotenv = Dotenv.configure().directory("/utils/bd_data").filename(LogicDefinitions.ENV_TO_LOAD).load();
-//		Dotenv dotenv = Dotenv.configure().directory("").filename(LogicDefinitions.ENV_LOAD).load();
+//		Dotenv dotenv = Dotenv.configure().directory("").filename(LogicDefinitions.ENV_TO_LOAD).load();
 		Class.forName("org.postgresql.Driver");
 		String url = "jdbc:postgresql://" + dotenv.get("HOST") + ":" + dotenv.get("PORT") + "/" + dotenv.get("DATABASE");
 		

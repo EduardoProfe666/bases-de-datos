@@ -24,16 +24,16 @@ import visual.components.AveragePanel;
  */
 public class PanelHomeStudent extends BasicPanelMainScreen{
 	private static final long serialVersionUID = 1L;
-	private JLabel infoGeneralLbl;
+	private JLabel generalInfoLbl;
 	
 	public PanelHomeStudent(ColorScheme e, StudentDTO std) {
 		
-		infoGeneralLbl = new JLabel("Informaci\u00F3n General");
-		infoGeneralLbl.setFont(new Font("Roboto Medium", Font.BOLD, 28));
-		infoGeneralLbl.setBorder(new MatteBorder(0, 0, 2, 0, e.getBordeLbl()));
-//		infoGeneralLbl.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
-		infoGeneralLbl.setBounds(10, 35, 1180, 45);
-		add(infoGeneralLbl);
+		generalInfoLbl = new JLabel("Informaci\u00F3n General");
+		generalInfoLbl.setFont(new Font("Roboto Medium", Font.BOLD, 28));
+		generalInfoLbl.setBorder(new MatteBorder(0, 0, 2, 0, e.getBordeLbl()));
+//		generalInfoLbl.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+		generalInfoLbl.setBounds(10, 35, 1180, 45);
+		add(generalInfoLbl);
 		
 		JLabel nameStd = new JLabel(std.getNames() + " " + std.getLastNames());
 		nameStd.setFont(new Font("Roboto Medium", Font.PLAIN, 24));

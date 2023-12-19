@@ -8,14 +8,14 @@ import definitions.VisualDefinitions;
 import definitions.VisualErrors;
 import dto.UserDTO;
 import utils.Encription;
-import utils.Validaciones;
+import utils.Validations;
 
 public class AuthServices {
 	protected AuthServices() {}
 	
 	public UserDTO authSecurity(String mail, String password) throws ClassNotFoundException, SQLException {
-		boolean userNotEmpty = Validaciones.validarStringNoVacio(mail) && !mail.equals(VisualDefinitions.PLACEHOLDER_USER);
-		boolean passwordNotEmpty = Validaciones.validarStringNoVacio(password) && !password.equals(VisualDefinitions.PLACEHOLDER_PASSWORD);
+		boolean userNotEmpty = Validations.validateStringNotEmptyOrNull(mail) && !mail.equals(VisualDefinitions.PLACEHOLDER_USER);
+		boolean passwordNotEmpty = Validations.validateStringNotEmptyOrNull(password) && !password.equals(VisualDefinitions.PLACEHOLDER_PASSWORD);
 		
 		if(!userNotEmpty) {
 			if(!passwordNotEmpty)

@@ -19,7 +19,7 @@ import raven.toast.Notifications;
 import raven.toast.Notifications.Location;
 import services.ServicesLocator;
 import utils.ColorScheme;
-import utils.Validaciones;
+import utils.Validations;
 
 public class JDialogAddCauseOfDismissal extends JDialogGeneral {
 	private static final long serialVersionUID = 1L;
@@ -105,7 +105,7 @@ public class JDialogAddCauseOfDismissal extends JDialogGeneral {
 	public boolean validateInterface() {
 		boolean v = true;
 		
-		if(!Validaciones.validarStringNoVacio(cause.getText()) || !Validaciones.validarStringNoTodoEspacio(cause.getText()) || !Validaciones.validarTamString(cause.getText(), 1, 128)) {
+		if(!Validations.validateStringNotEmptyOrNull(cause.getText()) || !Validations.validateStringNotAllSpace(cause.getText()) || !Validations.validateTamString(cause.getText(), 1, 128)) {
 			v = false;
 			cause.putClientProperty("JComponent.outline", "error");
 		}

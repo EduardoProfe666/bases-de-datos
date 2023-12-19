@@ -50,7 +50,7 @@ public class JDialogPromotion extends JDialogGeneral {
 		}
 		
 		course_start = new JSpinner();
-		course_start.setModel(new SpinnerNumberModel(new Integer(start), new Integer(1900), new Integer(2200), new Integer(1)));
+		course_start.setModel(new SpinnerNumberModel(Integer.valueOf(start), Integer.valueOf(1950), Integer.valueOf(2150), Integer.valueOf(1)));
 		course_start.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -65,7 +65,7 @@ public class JDialogPromotion extends JDialogGeneral {
 				course_end.putClientProperty("JComponent.outline", null);
 			}
 		});
-		course_end.setModel(new SpinnerNumberModel(new Integer(end), new Integer(1900), new Integer(2200), new Integer(1)));
+		course_end.setModel(new SpinnerNumberModel(Integer.valueOf(end), Integer.valueOf(1900), Integer.valueOf(2200), Integer.valueOf(1)));
 		course_end.setFont(new Font("Roboto Medium", Font.PLAIN, 15));
 		course_end.setBounds(543, 57, 147, 25);
 		panelContenedor.add(course_end);
