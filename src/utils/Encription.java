@@ -48,4 +48,8 @@ public class Encription {
 	        }
 	        return desencriptacion;
 	    }
+	    
+	    public static void main(String[] args) {
+			System.out.println(decode("TINGER", "E57c7Qf8kSo="));
+		}
 }

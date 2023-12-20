@@ -75,7 +75,7 @@ public class JDialogAddCauseOfDismissal extends JDialogGeneral {
 						ServicesLocator.getCauseOfDismissalServices().addCauseOfDismissal(cause.getText());
 						dispose();
 						JDialogUpdateStudent.reset();
-						Notifications.getInstance().show(Notifications.Type.SUCCESS, Location.BOTTOM_RIGHT, 3500, "Evaluación actualizada con éxito");
+						Notifications.getInstance().show(Notifications.Type.SUCCESS, Location.BOTTOM_RIGHT, 3500, "Causa de baja insertada con éxito");
 					} catch (ClassNotFoundException | SQLException e1) {
 						Notifications.getInstance().show(Notifications.Type.ERROR, Location.BOTTOM_RIGHT, 3500, "Causa de baja ya existente");
 					}
